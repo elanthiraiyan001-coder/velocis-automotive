@@ -253,13 +253,13 @@
 
                 <!-- Vehicle Type Selector Tabs in Hero -->
                 <div class="inline-flex p-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 backdrop-blur-md gap-2 font-subheading font-bold text-sm tracking-wider uppercase">
-                    <button id="heroTabCar" onclick="selectHeroVehicle('car')" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold transition shadow-neon-cyan flex items-center gap-2">
-                        <i data-lucide="car" class="w-4 h-4"></i>
-                        <span>Car Service Center</span>
-                    </button>
-                    <button id="heroTabBike" onclick="selectHeroVehicle('bike')" class="px-5 py-2.5 rounded-lg text-slate-300 hover:text-neonCyan transition flex items-center gap-2">
+                    <button id="heroTabBike" onclick="selectHeroVehicle('bike')" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold transition shadow-neon-cyan flex items-center gap-2">
                         <i data-lucide="bike" class="w-4 h-4"></i>
                         <span>Superbike Bay</span>
+                    </button>
+                    <button id="heroTabCar" onclick="selectHeroVehicle('car')" class="px-5 py-2.5 rounded-lg text-slate-300 hover:text-neonCyan transition flex items-center gap-2">
+                        <i data-lucide="car" class="w-4 h-4"></i>
+                        <span>Car Service Center</span>
                     </button>
                 </div>
 
@@ -298,23 +298,23 @@
             <div class="lg:col-span-5">
                 <div class="relative rounded-2xl overflow-hidden border-neon-glow bg-darkCard/90 p-4 shadow-2xl backdrop-blur-xl group">
                     <div class="relative aspect-video lg:aspect-square rounded-xl overflow-hidden">
-                        <img id="heroVehicleImg" src="assets/car-service.jpg" alt="Velocis Car Diagnostic Bay" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <img id="heroVehicleImg" src="assets/bike-service.jpg" alt="Velocis Superbike Master Technician" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-darkCard via-transparent to-transparent opacity-80"></div>
                         
                         <!-- Floating Tech Tag -->
                         <div class="absolute top-4 right-4 px-3 py-1 rounded-md bg-slate-950/80 border border-cyan-500/40 text-cyan-300 text-xs font-subheading font-bold uppercase tracking-wider backdrop-blur-md">
-                            <span>Diagnostic Station #04</span>
+                            <span>Master Tech Bay #01</span>
                         </div>
 
                         <!-- Card Bottom Overlay Content -->
                         <div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-950/85 border border-slate-800 backdrop-blur-md space-y-2">
                             <div class="flex items-center justify-between">
-                                <span id="heroVehicleLabel" class="font-heading text-sm font-bold text-slate-100 uppercase">Master Car Diagnostic Bay</span>
+                                <span id="heroVehicleLabel" class="font-heading text-sm font-bold text-slate-100 uppercase">Superbike Master Tech Bay</span>
                                 <span class="text-xs text-neonCyan font-bold flex items-center gap-1">
                                     <span class="w-2 h-2 rounded-full bg-neonCyan animate-ping"></span> Live Bay Active
                                 </span>
                             </div>
-                            <p id="heroVehicleDesc" class="text-xs text-slate-300">OBD-II Scan, ECU Tuning, Laser Alignment, Hydraulic Engine Lift Calibration.</p>
+                            <p id="heroVehicleDesc" class="text-xs text-slate-300">Precision Valve Clearance, Engine Overhaul, Öhlins Suspension Setup & Custom ECU Remap.</p>
                         </div>
                     </div>
                 </div>
