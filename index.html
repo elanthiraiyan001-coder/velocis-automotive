@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocis Automotive | Premier Car & Superbike Service Center</title>
+    <meta name="description" content="Velocis Automotive - Elite Service, Maintenance, Computer Diagnostics, Ceramic Detailing & Performance Tuning for Cars and Superbikes.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#050A14',
+                        darkCard: '#0A1224',
+                        darkCardHover: '#0F1B36',
+                        neonCyan: '#00F0FF',
+                        neonBlue: '#0072FF',
+                        electricBlue: '#38BDF8',
+                        silverMetallic: '#CBD5E1',
+                        borderMetallic: 'rgba(56, 189, 248, 0.2)',
+                    },
+                    fontFamily: {
+                        heading: ['Orbitron', 'sans-serif'],
+                        subheading: ['Rajdhani', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'carbon-pattern': "radial-gradient(#00f0ff 0.75px, transparent 0.75px), radial-gradient(#00f0ff 0.75px, #050a14 0.75px)",
+                        'metallic-gradient': "linear-gradient(135deg, #FFFFFF 0%, #94A3B8 50%, #334155 100%)",
+                        'blue-glow-gradient': "radial-gradient(circle at center, rgba(0,240,255,0.15) 0%, rgba(5,10,20,0) 70%)",
+                        'neon-card-gradient': "linear-gradient(180deg, rgba(15, 27, 54, 0.8) 0%, rgba(10, 18, 36, 0.9) 100%)"
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 20px rgba(0, 240, 255, 0.35)',
+                        'neon-cyan-lg': '0 0 40px rgba(0, 240, 255, 0.5)',
+                        'blue-glow': '0 0 30px rgba(0, 114, 255, 0.4)',
+                        'metallic': '0 10px 30px -10px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.2)',
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s infinite ease-in-out',
+                        'float': 'float 6s infinite ease-in-out',
+                        'scanline': 'scanline 8s linear infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(0, 240, 255, 0.2)' },
+                            '50%': { boxShadow: '0 0 35px rgba(0, 240, 255, 0.6)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Metallic Text Gradient */
+        .text-silver-gradient {
+            background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 40%, #94A3B8 80%, #64748B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-cyan-gradient {
+            background: linear-gradient(135deg, #FFFFFF 0%, #00F0FF 50%, #0072FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .border-neon-glow {
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .border-neon-glow:hover {
+            border-color: rgba(0, 240, 255, 0.8);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+        }
+
+        /* Glassmorphism panel */
+        .glass-panel {
+            background: rgba(10, 18, 36, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050A14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00F0FF;
+        }
+
+        /* Canvas particles */
+        #bgCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-slate-200 font-body antialiased selection:bg-neonCyan selection:text-black min-h-screen overflow-x-hidden">
+
+    <!-- Top Emergency Announcement Bar -->
+    <div class="bg-gradient-to-r from-blue-950 via-slate-900 to-blue-950 border-b border-cyan-500/20 py-2 px-4 text-xs font-subheading tracking-wider uppercase">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-2 text-cyan-400">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <span class="font-bold text-slate-200">VELOCIS PERFORMANCE BAY IS OPEN</span>
+                <span class="hidden md:inline text-slate-400">| Complete Maintenance, Diagnostic Remapping & Detailing for Cars & Bikes</span>
+            </div>
+            <div class="flex items-center space-x-6 text-slate-300 text-xs">
+                <a href="tel:+18005558356" class="hover:text-neonCyan transition flex items-center gap-1.5 font-bold">
+                    <i data-lucide="phone-call" class="w-3.5 h-3.5 text-neonCyan"></i>
+                    <span>24/7 Breakdown Hotline: (800) 555-VELOCIS</span>
+                </a>
+                <span class="hidden sm:inline text-slate-600">|</span>
+                <div class="hidden sm:flex items-center gap-1.5 text-slate-400">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span>Mon - Sat: 8:00 AM - 9:00 PM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 transition-all duration-300" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo & Title -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="relative w-12 h-12 rounded-xl overflow-hidden border border-cyan-500/40 p-0.5 bg-slate-900 group-hover:border-neonCyan transition duration-300 shadow-neon-cyan">
+                    <img src="assets/velocis-logo.jpg" alt="Velocis Automotive Logo" class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition duration-500">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading text-xl sm:text-2xl font-black tracking-wider text-silver-gradient group-hover:text-neonCyan transition">VELOCIS</span>
+                    <span class="font-subheading text-xs font-bold tracking-widest text-cyan-400 -mt-1 uppercase">Automotive • Cars & Bikes</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-8 font-subheading text-sm uppercase tracking-wider font-semibold">
+                <a href="#services" class="text-slate-300 hover:text-neonCyan transition duration-200">Services</a>
+                <a href="#estimator" class="text-slate-300 hover:text-neonCyan transition duration-200 flex items-center gap-1">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-neonCyan"></span>
+                    Cost Calculator
+                </a>
+                <a href="#packages" class="text-slate-300 hover:text-neonCyan transition duration-200">Packages</a>
+                <a href="#advantage" class="text-slate-300 hover:text-neonCyan transition duration-200">Why Us</a>
+                <a href="#reviews" class="text-slate-300 hover:text-neonCyan transition duration-200">Reviews</a>
+                <a href="#contact" class="text-slate-300 hover:text-neonCyan transition duration-200">Location</a>
+            </nav>
+
+            <!-- Header Action Buttons -->
+            <div class="flex items-center gap-3">
+                <button onclick="openBookingModal()" class="relative group overflow-hidden rounded-lg p-[1px] font-subheading font-bold text-sm tracking-wider uppercase">
+                    <span class="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-600 to-cyan-400 group-hover:opacity-100 transition"></span>
+                    <span class="relative block px-5 py-2.5 bg-slate-950 rounded-[7px] text-neonCyan group-hover:bg-opacity-0 group-hover:text-black font-extrabold transition duration-300 flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        <span>Book Service</span>
+                    </span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-neonCyan">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl px-6 py-6 space-y-4 font-subheading font-semibold tracking-wider text-sm uppercase">
+            <a href="#services" class="block text-slate-200 hover:text-neonCyan" onclick="toggleMobileMenu()">Services</a>
+            <a href="#estimator" class="block text-slate-200 hover:text-neonCyan" onclick="toggleMobileMenu()">Cost Calculator</a>
+            <a href="#packages" class="block text-slate-200 hover:text-neonCyan" onclick="toggleMobileMenu()">Packages</a>
+            <a href="#advantage" class="block text-slate-200 hover:text-neonCyan" onclick="toggleMobileMenu()">Why Velocis</a>
+            <a href="#reviews" class="block text-slate-200 hover:text-neonCyan" onclick="toggleMobileMenu()">Reviews</a>
+            <a href="#contact" class="block text-slate-200 hover:text-neonCyan" onclick="toggleMobileMenu()">Contact & Location</a>
+            <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
+                <button onclick="openBookingModal(); toggleMobileMenu();" class="w-full py-3 bg-neonCyan text-black font-extrabold rounded-lg uppercase tracking-wider text-center shadow-neon-cyan">
+                    Schedule Appointment Now
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-16 lg:py-24">
+        <!-- Canvas Background Particles -->
+        <canvas id="bgCanvas"></canvas>
+
+        <!-- Hero Image Overlay & Gradients -->
+        <div class="absolute inset-0 z-0">
+            <img src="assets/hero-bg.jpg" alt="Velocis Garage Bay" class="w-full h-full object-cover object-center opacity-30 mix-blend-luminosity transform scale-105 animate-pulse-glow">
+            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-darkBg via-darkBg/60 to-darkBg"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center lg:text-left grid lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Hero Content -->
+            <div class="lg:col-span-7 space-y-8">
+                
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-cyan-400 text-xs font-subheading font-bold uppercase tracking-widest backdrop-blur-md shadow-neon-cyan">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-neonCyan animate-bounce"></i>
+                    <span>Authorized Full-Service Workshop for Cars & Superbikes</span>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight uppercase leading-[1.1]">
+                    <span class="block text-silver-gradient">ENGINEERED FOR</span>
+                    <span class="block text-cyan-gradient drop-shadow-[0_5px_15px_rgba(0,240,255,0.4)]">PEAK PERFORMANCE</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-slate-300 text-base sm:text-lg max-w-2xl font-body leading-relaxed">
+                    From luxury sedans and sports cars to high-displacement superbikes. Master technician diagnostics, OEM factory parts, ECU remapping, ceramic detailing, and full mechanical overhauls under one roof.
+                </p>
+
+                <!-- Vehicle Type Selector Tabs in Hero -->
+                <div class="inline-flex p-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 backdrop-blur-md gap-2 font-subheading font-bold text-sm tracking-wider uppercase">
+                    <button id="heroTabCar" onclick="selectHeroVehicle('car')" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold transition shadow-neon-cyan flex items-center gap-2">
+                        <i data-lucide="car" class="w-4 h-4"></i>
+                        <span>Car Service Center</span>
+                    </button>
+                    <button id="heroTabBike" onclick="selectHeroVehicle('bike')" class="px-5 py-2.5 rounded-lg text-slate-300 hover:text-neonCyan transition flex items-center gap-2">
+                        <i data-lucide="bike" class="w-4 h-4"></i>
+                        <span>Superbike Bay</span>
+                    </button>
+                </div>
+
+                <!-- Hero Action Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                    <button onclick="openBookingModal()" class="px-8 py-4 rounded-xl bg-neonCyan hover:bg-cyan-300 text-black font-heading font-black text-sm uppercase tracking-wider transition duration-300 shadow-neon-cyan flex items-center gap-3 group">
+                        <span>Book Instant Inspection</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition"></i>
+                    </button>
+                    
+                    <a href="#estimator" class="px-7 py-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-200 font-subheading font-bold text-sm uppercase tracking-wider transition duration-300 flex items-center gap-2">
+                        <i data-lucide="calculator" class="w-4 h-4 text-cyan-400"></i>
+                        <span>Calculate Cost</span>
+                    </a>
+                </div>
+
+                <!-- Hero Trust Stats -->
+                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0">
+                    <div>
+                        <div class="font-heading text-2xl lg:text-3xl font-black text-neonCyan">15,000+</div>
+                        <div class="text-xs font-subheading text-slate-400 uppercase tracking-wider font-semibold">Vehicles Serviced</div>
+                    </div>
+                    <div>
+                        <div class="font-heading text-2xl lg:text-3xl font-black text-silver-gradient">4.9 ★</div>
+                        <div class="text-xs font-subheading text-slate-400 uppercase tracking-wider font-semibold">500+ Reviews</div>
+                    </div>
+                    <div>
+                        <div class="font-heading text-2xl lg:text-3xl font-black text-neonCyan">100%</div>
+                        <div class="text-xs font-subheading text-slate-400 uppercase tracking-wider font-semibold">OEM Guaranteed</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Hero Visual Card -->
+            <div class="lg:col-span-5">
+                <div class="relative rounded-2xl overflow-hidden border-neon-glow bg-darkCard/90 p-4 shadow-2xl backdrop-blur-xl group">
+                    <div class="relative aspect-video lg:aspect-square rounded-xl overflow-hidden">
+                        <img id="heroVehicleImg" src="assets/car-service.jpg" alt="Velocis Car Diagnostic Bay" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkCard via-transparent to-transparent opacity-80"></div>
+                        
+                        <!-- Floating Tech Tag -->
+                        <div class="absolute top-4 right-4 px-3 py-1 rounded-md bg-slate-950/80 border border-cyan-500/40 text-cyan-300 text-xs font-subheading font-bold uppercase tracking-wider backdrop-blur-md">
+                            <span>Diagnostic Station #04</span>
+                        </div>
+
+                        <!-- Card Bottom Overlay Content -->
+                        <div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-950/85 border border-slate-800 backdrop-blur-md space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span id="heroVehicleLabel" class="font-heading text-sm font-bold text-slate-100 uppercase">Master Car Diagnostic Bay</span>
+                                <span class="text-xs text-neonCyan font-bold flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-neonCyan animate-ping"></span> Live Bay Active
+                                </span>
+                            </div>
+                            <p id="heroVehicleDesc" class="text-xs text-slate-300">OBD-II Scan, ECU Tuning, Laser Alignment, Hydraulic Engine Lift Calibration.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- QUICK CATEGORIES TICKER BAR -->
+    <section class="border-y border-cyan-500/20 bg-slate-950/80 py-4 font-subheading uppercase text-xs tracking-widest text-slate-400 overflow-hidden">
+        <div class="flex space-x-12 animate-scanline whitespace-nowrap justify-around">
+            <span class="flex items-center gap-2"><i data-lucide="wrench" class="w-4 h-4 text-neonCyan"></i> Full Synthetic Oil Service</span>
+            <span class="flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> Stage 1/2 ECU Remapping</span>
+            <span class="flex items-center gap-2"><i data-lucide="disc" class="w-4 h-4 text-neonCyan"></i> Brembo Performance Brakes</span>
+            <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i> 9H Ceramic Gloss Detailing</span>
+            <span class="flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4 text-neonCyan"></i> 3D Laser Wheel Alignment</span>
+            <span class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 text-cyan-400"></i> Superbike Valve Clearance</span>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION (CAR & BIKE INTERACTIVE TABS) -->
+    <section id="services" class="py-20 relative bg-darkBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="font-subheading text-cyan-400 font-bold uppercase tracking-widest text-sm">Comprehensive Auto & Moto Services</h2>
+                <p class="font-heading text-3xl sm:text-4xl font-black text-silver-gradient uppercase">PRECISION WORKSHOP CAPABILITIES</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex justify-center mb-12">
+                <div class="inline-flex p-1.5 rounded-xl bg-slate-900 border border-slate-800 font-subheading font-bold text-sm tracking-wider uppercase">
+                    <button id="tabBtnCar" onclick="switchServiceTab('car')" class="px-8 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold shadow-neon-cyan transition flex items-center gap-2">
+                        <i data-lucide="car" class="w-5 h-5"></i>
+                        <span>Car Service Center</span>
+                    </button>
+                    <button id="tabBtnBike" onclick="switchServiceTab('bike')" class="px-8 py-3 rounded-lg text-slate-400 hover:text-neonCyan transition flex items-center gap-2">
+                        <i data-lucide="bike" class="w-5 h-5"></i>
+                        <span>Superbike Tech Bay</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAR SERVICES GRID -->
+            <div id="carServicesGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Service Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-neonCyan group-hover:scale-110 transition duration-300 shadow-neon-cyan">
+                            <i data-lucide="gauge" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Periodic Maintenance & Oil Flush</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Full synthetic engine oil replacement, OEM filter upgrade, 50-point safety check, coolant top-up & computer error reset.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Liqui Moly / Motul Synthetic</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Complete Spark Plug Inspection</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$129</span></span>
+                        <button onclick="openBookingModal('Car Periodic Service')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Service <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-blue-500/40 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition duration-300 shadow-blue-glow">
+                            <i data-lucide="cpu" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">ECU Remapping & Dyno Tuning</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Stage 1 & Stage 2 custom software mapping, speed limiter removal, improved throttle response, and horsepower optimization.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Custom Dyno Graph Output</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Pop & Bang / Flame Maps Optional</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$399</span></span>
+                        <button onclick="openBookingModal('Car ECU Tuning')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Tune <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-neonCyan group-hover:scale-110 transition duration-300 shadow-neon-cyan">
+                            <i data-lucide="disc" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Brake System & 3D Alignment</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">High-performance ceramic brake pad installation, rotor skim/replacement, high-temp fluid flush, and 3D camera laser wheel alignment.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Brembo / EBC Approved Bay</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Zero-Vibration Steering Balance</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$189</span></span>
+                        <button onclick="openBookingModal('Car Brake Service')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Service <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-blue-500/40 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition duration-300 shadow-blue-glow">
+                            <i data-lucide="sparkles" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">9H Ceramic Coating & PPF</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Multi-stage paint correction, swirl removal, self-healing paint protection film (PPF), and hydrophobic ceramic glass shield.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> 5-Year High-Gloss Warranty</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Hydrophobic UV Repellent</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$499</span></span>
+                        <button onclick="openBookingModal('Car Ceramic Detailing')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Detailing <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-neonCyan group-hover:scale-110 transition duration-300 shadow-neon-cyan">
+                            <i data-lucide="snowflake" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">AC Climate Control & Gas Refill</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">R134a/R1234yf gas recharge, compressor leak detection, cabin air filter replacement, and antibacterial evaporator sterilization.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Sub-Zero Temp Verification</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Odor & Fungus Eliminator</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$99</span></span>
+                        <button onclick="openBookingModal('Car AC Repair')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Service <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-blue-500/40 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition duration-300 shadow-blue-glow">
+                            <i data-lucide="settings" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Transmission & Engine Rebuild</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Comprehensive engine overhaul, dual-clutch transmission (DSG/DCT) servicing, gasket replacement, and head re-facing.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> 1-Year Workmanship Warranty</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Dynamic Load Chamber Test</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Custom Quote</span>
+                        <button onclick="openBookingModal('Car Engine Rebuild')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Inquire Bay <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- BIKE SERVICES GRID (Hidden by default) -->
+            <div id="bikeServicesGrid" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Bike Service Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-neonCyan group-hover:scale-110 transition duration-300 shadow-neon-cyan">
+                            <i data-lucide="zap" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Superbike Master Service</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Motul 300V Factory Line oil flush, K&N high-flow air filter cleaning, iridium spark plugs, throttle body sync & OBD diag.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Ducati, BMW, Kawasaki Spec</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> 40-Point Track Safety Check</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$149</span></span>
+                        <button onclick="openBookingModal('Superbike Master Service')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Bay <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bike Service Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-blue-500/40 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition duration-300 shadow-blue-glow">
+                            <i data-lucide="sliders" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Desmo Service & Valve Timing</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Precision shim measurement, desmodromic valve clearance setup, timing belt renewal, and compression ratio verification.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Micrometer Precision Clearance</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Factory Spec Gaskets</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$299</span></span>
+                        <button onclick="openBookingModal('Desmo & Valve Service')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Service <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bike Service Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-neonCyan group-hover:scale-110 transition duration-300 shadow-neon-cyan">
+                            <i data-lucide="activity" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Öhlins Track Suspension Tuning</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Custom rider sag setup, fork seal overhaul, high-viscosity suspension fluid change, and compression/rebound damping calibration.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Tailored Rider Weight Tuning</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Cornering Stability Optimization</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$179</span></span>
+                        <button onclick="openBookingModal('Bike Suspension Tuning')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Tuning <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bike Service Card 4 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-blue-500/40 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition duration-300 shadow-blue-glow">
+                            <i data-lucide="flame" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Full Exhaust System & ECU Flash</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Akrapovič / Austin Racing exhaust fitting, Woolich ECU flashing, quickshifter / auto-blipper activation & AFR tuning.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Decat Pipe Fitting & O2 Elimination</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Dyno HP Printout Included</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$249</span></span>
+                        <button onclick="openBookingModal('Bike Exhaust & Flash')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Service <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bike Service Card 5 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-neonCyan group-hover:scale-110 transition duration-300 shadow-neon-cyan">
+                            <i data-lucide="shield" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Chain, Sprocket & Wheel Balance</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">DID Gold O-ring chain installation, JT sprockets fitting, ultrasonic chain deep clean, and digital dynamic wheel balancing.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Laser Rear Wheel Alignment</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> High Temp Wax Lube</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$89</span></span>
+                        <button onclick="openBookingModal('Bike Chain & Wheel')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Service <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bike Service Card 6 -->
+                <div class="glass-panel p-6 rounded-2xl border-neon-glow hover:bg-darkCardHover transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-blue-500/40 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition duration-300 shadow-blue-glow">
+                            <i data-lucide="shield-alert" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Fairing Ceramic Coating & Detailing</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Exhaust manifold heat polishing, carbon fiber fairing nano coating, helmet visor hydrophobic treatment & engine block degreasing.</p>
+                        <ul class="text-xs text-slate-300 space-y-2 pt-2 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Heat-Resistant Exhaust Coating</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-neonCyan"></i> Gloss & Matte Finishes Available</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 flex justify-between items-center">
+                        <span class="text-xs font-subheading uppercase font-bold text-slate-400">Starting from <span class="text-neonCyan text-base font-heading">$199</span></span>
+                        <button onclick="openBookingModal('Superbike Ceramic Detailing')" class="text-xs font-subheading uppercase font-bold text-cyan-400 hover:text-neonCyan flex items-center gap-1 group-hover:translate-x-1 transition">
+                            Book Detailing <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INSTANT COST & TIME ESTIMATOR SECTION -->
+    <section id="estimator" class="py-20 relative bg-slate-950/90 border-y border-cyan-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Text -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/80 border border-cyan-500/30 text-cyan-400 text-xs font-subheading font-bold uppercase tracking-wider">
+                        <i data-lucide="calculator" class="w-4 h-4 text-neonCyan"></i>
+                        <span>Instant Transparent Pricing</span>
+                    </div>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-black text-silver-gradient uppercase leading-tight">
+                        CALCULATE YOUR SERVICE COST IN SECONDS
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        No hidden surprises. Select your vehicle type, desired service tier, and optional upgrades to get an immediate itemized cost estimate.
+                    </p>
+
+                    <div class="space-y-4 pt-4 border-t border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/30 flex items-center justify-center text-neonCyan font-bold text-sm">1</div>
+                            <span class="text-sm font-subheading uppercase text-slate-300 font-semibold">100% Price Lock Guarantee Upon Booking</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/30 flex items-center justify-center text-neonCyan font-bold text-sm">2</div>
+                            <span class="text-sm font-subheading uppercase text-slate-300 font-semibold">Complimentary 50-Point Multi-Diagnostic Check</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/30 flex items-center justify-center text-neonCyan font-bold text-sm">3</div>
+                            <span class="text-sm font-subheading uppercase text-slate-300 font-semibold">Free Doorstep Pickup & Pickup Cam Updates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Estimator Interactive Card -->
+                <div class="lg:col-span-7">
+                    <div class="glass-panel p-6 sm:p-8 rounded-3xl border-neon-glow shadow-neon-cyan relative">
+                        
+                        <h3 class="font-heading text-xl font-bold text-slate-100 uppercase mb-6 flex items-center gap-2">
+                            <i data-lucide="sliders" class="w-5 h-5 text-neonCyan"></i>
+                            <span>Interactive Service Estimator</span>
+                        </h3>
+
+                        <div class="space-y-6">
+                            
+                            <!-- Step 1: Vehicle Type -->
+                            <div>
+                                <label class="block text-xs font-subheading font-bold uppercase tracking-wider text-slate-400 mb-2">1. Select Vehicle Category</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <button type="button" id="calcTypeCar" onclick="updateCalcVehicle('car')" class="py-3 px-4 rounded-xl border border-neonCyan bg-cyan-950/60 text-neonCyan font-subheading font-bold text-sm uppercase flex items-center justify-center gap-2 transition">
+                                        <i data-lucide="car" class="w-5 h-5"></i> Four-Wheeler / Car
+                                    </button>
+                                    <button type="button" id="calcTypeBike" onclick="updateCalcVehicle('bike')" class="py-3 px-4 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 font-subheading font-bold text-sm uppercase flex items-center justify-center gap-2 transition">
+                                        <i data-lucide="bike" class="w-5 h-5"></i> Two-Wheeler / Superbike
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Service Level -->
+                            <div>
+                                <label class="block text-xs font-subheading font-bold uppercase tracking-wider text-slate-400 mb-2">2. Choose Service Tier</label>
+                                <select id="calcTier" onchange="calculateEstimate()" class="w-full bg-slate-900 border border-slate-700 focus:border-neonCyan rounded-xl py-3 px-4 text-slate-200 font-subheading font-bold text-sm focus:outline-none transition">
+                                    <option value="basic">Standard Maintenance ($129)</option>
+                                    <option value="full" selected>Comprehensive Master Service ($249)</option>
+                                    <option value="performance">Track & Performance Tuning ($399)</option>
+                                    <option value="ceramic">Full Ceramic Detailing & Paint Correction ($499)</option>
+                                </select>
+                            </div>
+
+                            <!-- Step 3: Add-on Checkboxes -->
+                            <div>
+                                <label class="block text-xs font-subheading font-bold uppercase tracking-wider text-slate-400 mb-2">3. Optional Add-ons</label>
+                                <div class="grid sm:grid-cols-2 gap-3">
+                                    <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:border-cyan-500/40 transition">
+                                        <input type="checkbox" id="addonPickup" onchange="calculateEstimate()" class="w-4 h-4 text-neonCyan bg-slate-950 border-slate-700 rounded focus:ring-neonCyan">
+                                        <span class="text-xs font-subheading font-bold text-slate-300 uppercase">Valet Pick & Drop (+$30)</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:border-cyan-500/40 transition">
+                                        <input type="checkbox" id="addonFlush" onchange="calculateEstimate()" class="w-4 h-4 text-neonCyan bg-slate-950 border-slate-700 rounded focus:ring-neonCyan">
+                                        <span class="text-xs font-subheading font-bold text-slate-300 uppercase">Engine Flush Treatment (+$45)</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:border-cyan-500/40 transition">
+                                        <input type="checkbox" id="addonSanitize" onchange="calculateEstimate()" class="w-4 h-4 text-neonCyan bg-slate-950 border-slate-700 rounded focus:ring-neonCyan">
+                                        <span class="text-xs font-subheading font-bold text-slate-300 uppercase">Deep Cabin Ozone Sanitization (+$35)</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:border-cyan-500/40 transition">
+                                        <input type="checkbox" id="addonDyno" onchange="calculateEstimate()" class="w-4 h-4 text-neonCyan bg-slate-950 border-slate-700 rounded focus:ring-neonCyan">
+                                        <span class="text-xs font-subheading font-bold text-slate-300 uppercase">Before/After Dyno Run (+$80)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Calculation Result Box -->
+                            <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/80 to-slate-900 border border-cyan-500/40 flex flex-wrap items-center justify-between gap-4">
+                                <div>
+                                    <div class="text-xs font-subheading uppercase font-bold text-slate-400">Estimated Total Cost</div>
+                                    <div class="flex items-baseline gap-2">
+                                        <span id="calcTotal" class="font-heading text-3xl font-black text-neonCyan">$249</span>
+                                        <span class="text-xs text-slate-400 font-subheading uppercase">Taxes & OEM oil included</span>
+                                    </div>
+                                    <div class="text-xs text-cyan-400 font-subheading font-bold uppercase mt-1 flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-3.5 h-3.5"></i> Estimated Bay Duration: <span id="calcTime">3.5 Hours</span>
+                                    </div>
+                                </div>
+                                
+                                <button onclick="proceedFromEstimator()" class="px-6 py-3.5 rounded-xl bg-neonCyan hover:bg-cyan-300 text-black font-heading font-black text-xs uppercase tracking-wider transition duration-300 shadow-neon-cyan flex items-center gap-2">
+                                    <span>Lock Price & Book</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE VELOCIS (ADVANTAGE SECTION) -->
+    <section id="advantage" class="py-20 bg-darkBg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="font-subheading text-cyan-400 font-bold uppercase tracking-widest text-sm">The Velocis Advantage</h2>
+                <p class="font-heading text-3xl sm:text-4xl font-black text-silver-gradient uppercase">WHY AUTOMOTIVE ENTHUSIASTS TRUST US</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Feature 1 -->
+                <div class="glass-panel p-8 rounded-2xl border-neon-glow hover:-translate-y-1 transition duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-neonCyan shadow-neon-cyan">
+                        <i data-lucide="scan" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Factory OBD-II Diagnostics</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Dealer-level scanner tools for BMW, Porsche, Audi, Ducati, Triumph, Yamaha, and Honda to pinpoint issues instantly.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-panel p-8 rounded-2xl border-neon-glow hover:-translate-y-1 transition duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-950 border border-blue-500/40 flex items-center justify-center text-cyan-400 shadow-blue-glow">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">100% Genuine OEM Spare Parts</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Direct factory sourcing with QR authentication codes for all filters, brake pads, belts, spark plugs, and engine components.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-panel p-8 rounded-2xl border-neon-glow hover:-translate-y-1 transition duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-neonCyan shadow-neon-cyan">
+                        <i data-lucide="video" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Live Bay Cam & Video Approval</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Receive live WhatsApp HD video updates and part replacement photos before any work begins. 100% transparency.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="glass-panel p-8 rounded-2xl border-neon-glow hover:-translate-y-1 transition duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-950 border border-blue-500/40 flex items-center justify-center text-cyan-400 shadow-blue-glow">
+                        <i data-lucide="truck" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Enclosed Flatbed Transport</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Specialized low-clearance enclosed flatbed towing for supercars and hydraulic motorcycle transport cradles.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="glass-panel p-8 rounded-2xl border-neon-glow hover:-translate-y-1 transition duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-neonCyan shadow-neon-cyan">
+                        <i data-lucide="award" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">Master Certified Technicians</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">ASE & Manufacturer-certified mechanics with 12+ years specialized experience in performance tuning and diagnostics.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="glass-panel p-8 rounded-2xl border-neon-glow hover:-translate-y-1 transition duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-950 border border-blue-500/40 flex items-center justify-center text-cyan-400 shadow-blue-glow">
+                        <i data-lucide="badge-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-slate-100 uppercase">12-Month / 12,000 Mile Warranty</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">All mechanical service work and installed components are backed by our nationwide written warranty policy.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BEFORE & AFTER SHOWCASE / DETAILING STUDIO -->
+    <section class="py-20 bg-slate-950 border-t border-cyan-500/20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-950/80 border border-blue-500/40 text-cyan-400 text-xs font-subheading font-bold uppercase tracking-wider">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-neonCyan"></i>
+                        <span>Detailing & Paint Protection Studio</span>
+                    </div>
+                    
+                    <h2 class="font-heading text-3xl sm:text-4xl font-black text-silver-gradient uppercase leading-tight">
+                        MIRROR-FINISH CRAFTSMANSHIP FOR YOUR PRIDE & JOY
+                    </h2>
+                    
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Our temperature-controlled dust-free detailing studio utilizes dual-action orbital polishers, multi-layer 9H quartz coatings, and self-healing clear paint protection film.
+                    </p>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                            <span class="font-heading text-lg font-bold text-neonCyan">9H Hardness</span>
+                            <p class="text-xs text-slate-400">Scratch & swirl resistant nano-glass barrier.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                            <span class="font-heading text-lg font-bold text-neonCyan">Hydrophobic Effect</span>
+                            <p class="text-xs text-slate-400">Water, mud, and dirt slide right off.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button onclick="openBookingModal('Ceramic Coating Package')" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-heading font-black text-xs uppercase tracking-wider shadow-neon-cyan hover:brightness-110 transition flex items-center gap-2">
+                            <span>Book Detailing Bay</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="relative rounded-2xl overflow-hidden border-neon-glow shadow-neon-cyan">
+                        <img src="assets/detailing.jpg" alt="Velocis Ceramic Coating Gloss Finish" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-950/85 border border-slate-800 backdrop-blur-md flex items-center justify-between">
+                            <div>
+                                <span class="font-heading text-sm font-bold text-slate-100 uppercase">9H Quartz Ceramic Coating Studio</span>
+                                <p class="text-xs text-cyan-400">Hydrophobic bead reflection test verified</p>
+                            </div>
+                            <span class="px-3 py-1 rounded bg-cyan-950 border border-cyan-500/40 text-neonCyan font-subheading text-xs font-bold uppercase">5-Yr Warranty</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PACKAGES SECTION -->
+    <section id="packages" class="py-20 bg-darkBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="font-subheading text-cyan-400 font-bold uppercase tracking-widest text-sm">Clear & Upfront Packages</h2>
+                <p class="font-heading text-3xl sm:text-4xl font-black text-silver-gradient uppercase">FEATURED SERVICE PLANS</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                
+                <!-- Package 1: Silver Maintenance -->
+                <div class="glass-panel p-8 rounded-3xl border-slate-800 hover:border-cyan-500/40 transition duration-300 flex flex-col justify-between space-y-8 relative">
+                    <div class="space-y-6">
+                        <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-subheading font-bold uppercase tracking-wider">Basic Routine</span>
+                        <h3 class="font-heading text-2xl font-black text-slate-100 uppercase">Silver Express</h3>
+                        <p class="text-xs text-slate-400">Ideal for routine 5,000 km oil updates & quick inspection.</p>
+                        
+                        <div class="flex items-baseline gap-2 pt-2 border-t border-slate-800">
+                            <span class="font-heading text-4xl font-black text-slate-100">$129</span>
+                            <span class="text-xs text-slate-400 font-subheading uppercase">/ service</span>
+                        </div>
+
+                        <ul class="text-xs text-slate-300 space-y-3">
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Fully Synthetic Oil Flush</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> OEM Engine Oil Filter</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> 30-Point Safety Check</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Brake Pad & Fluid Inspection</li>
+                            <li class="flex items-center gap-2.5 text-slate-500"><i data-lucide="x" class="w-4 h-4"></i> ECU Remap (Not Included)</li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openBookingModal('Silver Express Package')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-subheading font-bold text-xs uppercase tracking-wider transition">
+                        Select Plan
+                    </button>
+                </div>
+
+                <!-- Package 2: Gold Master (POPULAR) -->
+                <div class="glass-panel p-8 rounded-3xl border-neon-glow shadow-neon-cyan transition duration-300 flex flex-col justify-between space-y-8 relative transform lg:-translate-y-4">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-neonCyan text-black font-subheading font-black text-xs uppercase tracking-widest shadow-neon-cyan">
+                        MOST POPULAR CHOICE
+                    </div>
+                    
+                    <div class="space-y-6 pt-2">
+                        <span class="px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 text-xs font-subheading font-bold uppercase tracking-wider">Full Care</span>
+                        <h3 class="font-heading text-2xl font-black text-silver-gradient uppercase">Gold Master Care</h3>
+                        <p class="text-xs text-slate-400">Complete annual maintenance for high performance cars & bikes.</p>
+                        
+                        <div class="flex items-baseline gap-2 pt-2 border-t border-slate-800">
+                            <span class="font-heading text-4xl font-black text-neonCyan">$249</span>
+                            <span class="text-xs text-slate-400 font-subheading uppercase">/ service</span>
+                        </div>
+
+                        <ul class="text-xs text-slate-200 space-y-3">
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Premium Motul / Liqui Moly Synthetic</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Oil, Air & Cabin Filter Renewal</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> OBD-II Full Computer Diagnostic Reset</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> 3D Wheel Alignment & Balancing</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Complimentary Valet Pick & Drop</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Engine Bay Steam Washing</li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openBookingModal('Gold Master Care Package')" class="w-full py-4 rounded-xl bg-neonCyan hover:bg-cyan-300 text-black font-heading font-black text-xs uppercase tracking-wider transition shadow-neon-cyan">
+                        Book Gold Package
+                    </button>
+                </div>
+
+                <!-- Package 3: Platinum Track & Tune -->
+                <div class="glass-panel p-8 rounded-3xl border-slate-800 hover:border-cyan-500/40 transition duration-300 flex flex-col justify-between space-y-8 relative">
+                    <div class="space-y-6">
+                        <span class="px-3 py-1 rounded-full bg-blue-950 text-cyan-300 text-xs font-subheading font-bold uppercase tracking-wider">Ultimate Performance</span>
+                        <h3 class="font-heading text-2xl font-black text-slate-100 uppercase">Platinum Performance</h3>
+                        <p class="text-xs text-slate-400">Track-day setup, ECU remapping, dyno runs & ceramic shield.</p>
+                        
+                        <div class="flex items-baseline gap-2 pt-2 border-t border-slate-800">
+                            <span class="font-heading text-4xl font-black text-slate-100">$499</span>
+                            <span class="text-xs text-slate-400 font-subheading uppercase">/ service</span>
+                        </div>
+
+                        <ul class="text-xs text-slate-300 space-y-3">
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Everything in Gold Package</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Custom Stage 1/2 ECU Remapping</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Before & After Dyno HP Verification</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> Single-Layer Ceramic Body Gloss</li>
+                            <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-neonCyan"></i> High Temp Brake Fluid Flush</li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openBookingModal('Platinum Performance Package')" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-subheading font-bold text-xs uppercase tracking-wider transition">
+                        Select Plan
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS & REVIEWS SECTION -->
+    <section id="reviews" class="py-20 bg-slate-950 border-t border-cyan-500/20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="font-subheading text-cyan-400 font-bold uppercase tracking-widest text-sm">Driver & Rider Reviews</h2>
+                <p class="font-heading text-3xl sm:text-4xl font-black text-silver-gradient uppercase">WHAT OUR CLIENTS SAY</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Review 1 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 space-y-4">
+                    <div class="flex items-center gap-1 text-amber-400 text-sm">
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed italic">
+                        "Brought my BMW M3 in for Stage 2 ECU remapping and brake rotor replacement. The live WhatsApp video updates kept me 100% informed. Car gains were unreal on dyno!"
+                    </p>
+                    <div class="pt-4 border-t border-slate-800 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center font-heading font-bold text-neonCyan">
+                            MC
+                        </div>
+                        <div>
+                            <div class="font-heading text-xs font-bold text-slate-100 uppercase">Marcus Vance</div>
+                            <div class="text-[11px] text-cyan-400 font-subheading">BMW M3 Competition Owner</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 space-y-4">
+                    <div class="flex items-center gap-1 text-amber-400 text-sm">
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed italic">
+                        "Finding a shop that understands Ducati Desmo valve adjustments is tough. Velocis handled my Panigale V4 with master precision. Smooth as butter now."
+                    </p>
+                    <div class="pt-4 border-t border-slate-800 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-950 border border-blue-500/40 flex items-center justify-center font-heading font-bold text-cyan-400">
+                            DR
+                        </div>
+                        <div>
+                            <div class="font-heading text-xs font-bold text-slate-100 uppercase">David Rossi</div>
+                            <div class="text-[11px] text-cyan-400 font-subheading">Ducati Panigale V4 Rider</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 space-y-4">
+                    <div class="flex items-center gap-1 text-amber-400 text-sm">
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed italic">
+                        "Got 9H Ceramic coating done on my Range Rover. Water literally slides off like magic. The team is super professional, punctual, and worth every cent."
+                    </p>
+                    <div class="pt-4 border-t border-slate-800 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center font-heading font-bold text-neonCyan">
+                            SK
+                        </div>
+                        <div>
+                            <div class="font-heading text-xs font-bold text-slate-100 uppercase">Sarah Jenkins</div>
+                            <div class="text-[11px] text-cyan-400 font-subheading">Range Rover Autobiography Owner</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ ACCORDION SECTION -->
+    <section class="py-20 bg-darkBg border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="font-subheading text-cyan-400 font-bold uppercase tracking-widest text-sm">Got Questions?</h2>
+                <p class="font-heading text-3xl font-black text-silver-gradient uppercase">FREQUENTLY ASKED QUESTIONS</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- FAQ 1 -->
+                <div class="glass-panel rounded-2xl border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(1)" class="w-full p-6 text-left font-heading text-sm font-bold text-slate-100 uppercase flex items-center justify-between hover:text-neonCyan transition">
+                        <span>Do you service both luxury cars and high-end bikes?</span>
+                        <i id="faqIcon1" data-lucide="chevron-down" class="w-5 h-5 text-cyan-400 transform transition"></i>
+                    </button>
+                    <div id="faqAns1" class="hidden p-6 pt-0 text-slate-300 text-sm leading-relaxed border-t border-slate-800/50">
+                        Yes! We feature dual dedicated tech bays equipped specifically for four-wheelers (cars, SUVs, supercars) and two-wheelers (superbikes, cruisers, performance motorcycles) with master technicians for each division.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="glass-panel rounded-2xl border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(2)" class="w-full p-6 text-left font-heading text-sm font-bold text-slate-100 uppercase flex items-center justify-between hover:text-neonCyan transition">
+                        <span>Will servicing at Velocis void my vehicle warranty?</span>
+                        <i id="faqIcon2" data-lucide="chevron-down" class="w-5 h-5 text-cyan-400 transform transition"></i>
+                    </button>
+                    <div id="faqAns2" class="hidden p-6 pt-0 text-slate-300 text-sm leading-relaxed border-t border-slate-800/50">
+                        No. Under Magnuson-Moss warranty laws and manufacturer compliance standards, using our OEM-spec fluids and original factory components preserves your existing manufacturer warranty completely.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="glass-panel rounded-2xl border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(3)" class="w-full p-6 text-left font-heading text-sm font-bold text-slate-100 uppercase flex items-center justify-between hover:text-neonCyan transition">
+                        <span>How does the doorstep pickup & drop service work?</span>
+                        <i id="faqIcon3" data-lucide="chevron-down" class="w-5 h-5 text-cyan-400 transform transition"></i>
+                    </button>
+                    <div id="faqAns3" class="hidden p-6 pt-0 text-slate-300 text-sm leading-relaxed border-t border-slate-800/50">
+                        Our licensed flatbed logistics team picks up your vehicle from your residence or office. We perform a digital condition check, transmit real-time video updates during service, and transport it safely back to you.
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="glass-panel rounded-2xl border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(4)" class="w-full p-6 text-left font-heading text-sm font-bold text-slate-100 uppercase flex items-center justify-between hover:text-neonCyan transition">
+                        <span>How long does ceramic coating take to cure?</span>
+                        <i id="faqIcon4" data-lucide="chevron-down" class="w-5 h-5 text-cyan-400 transform transition"></i>
+                    </button>
+                    <div id="faqAns4" class="hidden p-6 pt-0 text-slate-300 text-sm leading-relaxed border-t border-slate-800/50">
+                        A full multi-stage paint correction and 9H quartz ceramic coating takes 24 to 48 hours in our dust-free infrared curing bay to achieve maximum hydrophobic hardness.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LOCATION & CONTACT SECTION -->
+    <section id="contact" class="py-20 bg-slate-950 border-t border-cyan-500/20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Contact Details -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/80 border border-cyan-500/30 text-cyan-400 text-xs font-subheading font-bold uppercase tracking-wider">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-neonCyan"></i>
+                        <span>Visit Our Workshop</span>
+                    </div>
+
+                    <h2 class="font-heading text-3xl font-black text-silver-gradient uppercase">VELOCIS AUTOMOTIVE HEADQUARTERS</h2>
+                    
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        State-of-the-art 12,000 sq ft facility featuring climate-controlled diagnostic bays, dyno cell, detailing studio, and luxury customer lounge with Wi-Fi & espresso bar.
+                    </p>
+
+                    <div class="space-y-4 pt-4 border-t border-slate-800 font-subheading">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-500/30 flex items-center justify-center text-neonCyan shrink-0">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-100 uppercase text-sm">Workshop Address</div>
+                                <div class="text-xs text-slate-400">450 Performance Way, Automotive Hub Sector 7</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-blue-950 border border-blue-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-100 uppercase text-sm">Phone & WhatsApp</div>
+                                <div class="text-xs text-slate-400">+1 (800) 555-VELOCIS | Direct Desk: +1 (555) 987-6543</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-500/30 flex items-center justify-center text-neonCyan shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-100 uppercase text-sm">Email Support</div>
+                                <div class="text-xs text-slate-400">service@velocisauto.com | dyno@velocisauto.com</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <button onclick="openBookingModal()" class="px-6 py-3 rounded-xl bg-neonCyan hover:bg-cyan-300 text-black font-heading font-black text-xs uppercase tracking-wider transition shadow-neon-cyan flex items-center gap-2">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                            <span>Book Visit</span>
+                        </button>
+                        <a href="https://maps.google.com" target="_blank" class="px-6 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-subheading font-bold text-xs uppercase tracking-wider hover:text-neonCyan transition flex items-center gap-2">
+                            <i data-lucide="navigation" class="w-4 h-4 text-cyan-400"></i>
+                            <span>Get Directions</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Interactive Map / Workshop Preview Card -->
+                <div class="lg:col-span-7">
+                    <div class="glass-panel p-4 rounded-3xl border-neon-glow shadow-neon-cyan">
+                        <div class="relative w-full h-[380px] rounded-2xl overflow-hidden bg-slate-900 flex items-center justify-center border border-slate-800">
+                            <!-- Custom Map Visual Overlay -->
+                            <img src="assets/hero-bg.jpg" alt="Velocis Map Location" class="w-full h-full object-cover opacity-40 filter contrast-125">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/60 to-transparent"></div>
+                            
+                            <!-- Location Pin Pulse -->
+                            <div class="absolute flex flex-col items-center gap-2">
+                                <div class="relative flex items-center justify-center">
+                                    <span class="animate-ping absolute inline-flex h-16 w-16 rounded-full bg-cyan-400 opacity-60"></span>
+                                    <div class="w-12 h-12 rounded-full bg-slate-950 border-2 border-neonCyan flex items-center justify-center shadow-neon-cyan z-10">
+                                        <img src="assets/velocis-logo.jpg" class="w-8 h-8 rounded-full object-cover">
+                                    </div>
+                                </div>
+                                <div class="px-4 py-2 rounded-xl bg-slate-950/90 border border-cyan-500/40 backdrop-blur-md text-center">
+                                    <div class="font-heading text-xs font-bold text-neonCyan uppercase">VELOCIS AUTOMOTIVE BAY</div>
+                                    <div class="text-[11px] text-slate-300 font-subheading">Open Now • Mon-Sat 8AM - 9PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-darkBg border-t border-slate-800 text-slate-400 text-xs pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 pb-12 border-b border-slate-800">
+                
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <img src="assets/velocis-logo.jpg" alt="Velocis Logo" class="w-10 h-10 rounded-lg border border-cyan-500/40">
+                        <span class="font-heading text-lg font-black text-silver-gradient">VELOCIS</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Premier full-service automotive shop specializing in car & superbike maintenance, computer diagnostics, ECU remapping, ceramic detailing, and performance builds.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-subheading font-bold text-slate-200 uppercase tracking-wider text-sm mb-4">Car Services</h4>
+                    <ul class="space-y-2 font-subheading">
+                        <li><a href="#services" class="hover:text-neonCyan transition">Periodic Synthetic Oil Service</a></li>
+                        <li><a href="#services" class="hover:text-neonCyan transition">Stage 1 / 2 ECU Tuning</a></li>
+                        <li><a href="#services" class="hover:text-neonCyan transition">Brembo Brake Overhaul</a></li>
+                        <li><a href="#services" class="hover:text-neonCyan transition">3D Laser Wheel Alignment</a></li>
+                        <li><a href="#services" class="hover:text-neonCyan transition">9H Ceramic Coating & PPF</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-subheading font-bold text-slate-200 uppercase tracking-wider text-sm mb-4">Superbike Services</h4>
+                    <ul class="space-y-2 font-subheading">
+                        <li><a href="#services" class="hover:text-neonCyan transition">Superbike Master Flush</a></li>
+                        <li><a href="#services" class="hover:text-neonCyan transition">Desmo Valve Adjustment</a></li>
+                        <li><a href="#services" class="hover:text-neonCyan transition">Öhlins Suspension Calibration</a></li>
+                        <li><a href="#services" class="hover:text-neonCyan transition">Akrapovič Exhaust & ECU Flash</a></li>
+                        <li><a href="#services" class="hover:text-neonCyan transition">DID Chain & Sprocket Fitment</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-subheading font-bold text-slate-200 uppercase tracking-wider text-sm mb-4">Operating Hours</h4>
+                    <ul class="space-y-2 font-subheading">
+                        <li class="flex justify-between"><span>Monday - Friday:</span> <span class="text-slate-200 font-bold">8:00 AM - 9:00 PM</span></li>
+                        <li class="flex justify-between"><span>Saturday:</span> <span class="text-slate-200 font-bold">9:00 AM - 7:00 PM</span></li>
+                        <li class="flex justify-between"><span>Sunday:</span> <span class="text-cyan-400 font-bold">Emergency & Track Bay Only</span></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-wrap justify-between items-center gap-4 text-slate-500 font-subheading">
+                <div>© 2026 Velocis Automotive. All Rights Reserved. Built with Precision.</div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-neonCyan transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-neonCyan transition">Terms of Service</a>
+                    <a href="#" class="hover:text-neonCyan transition">Warranty Coverage</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE BOOKING MODAL -->
+    <div id="bookingModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel max-w-xl w-full rounded-3xl border-neon-glow p-6 sm:p-8 relative shadow-neon-cyan max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="closeBookingModal()" class="absolute top-6 right-6 p-2 rounded-lg bg-slate-900 text-slate-400 hover:text-neonCyan border border-slate-800 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="space-y-4 mb-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950 border border-cyan-500/40 text-cyan-400 text-xs font-subheading font-bold uppercase">
+                    <i data-lucide="calendar" class="w-4 h-4 text-neonCyan"></i>
+                    <span>Schedule Workshop Visit</span>
+                </div>
+                <h3 class="font-heading text-2xl font-black text-silver-gradient uppercase">BOOK YOUR SERVICE BAY</h3>
+            </div>
+
+            <form id="bookingForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-subheading font-bold uppercase text-slate-400 mb-1">Full Name *</label>
+                        <input type="text" required placeholder="John Doe" class="w-full bg-slate-900 border border-slate-700 focus:border-neonCyan rounded-xl py-2.5 px-3 text-slate-200 text-sm focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-subheading font-bold uppercase text-slate-400 mb-1">Phone / WhatsApp *</label>
+                        <input type="tel" required placeholder="+1 (555) 000-0000" class="w-full bg-slate-900 border border-slate-700 focus:border-neonCyan rounded-xl py-2.5 px-3 text-slate-200 text-sm focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-subheading font-bold uppercase text-slate-400 mb-1">Vehicle Category *</label>
+                        <select id="modalVehicleCategory" class="w-full bg-slate-900 border border-slate-700 focus:border-neonCyan rounded-xl py-2.5 px-3 text-slate-200 text-sm focus:outline-none">
+                            <option value="car">Car / Four-Wheeler</option>
+                            <option value="bike">Superbike / Motorcycle</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-subheading font-bold uppercase text-slate-400 mb-1">Vehicle Brand & Model *</label>
+                        <input type="text" required placeholder="e.g. BMW M3 or Ducati V4" class="w-full bg-slate-900 border border-slate-700 focus:border-neonCyan rounded-xl py-2.5 px-3 text-slate-200 text-sm focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-subheading font-bold uppercase text-slate-400 mb-1">Service Required *</label>
+                    <input type="text" id="modalServiceName" required placeholder="e.g. Full Master Service & Diagnostic" class="w-full bg-slate-900 border border-slate-700 focus:border-neonCyan rounded-xl py-2.5 px-3 text-slate-200 text-sm focus:outline-none">
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-subheading font-bold uppercase text-slate-400 mb-1">Preferred Date *</label>
+                        <input type="date" required class="w-full bg-slate-900 border border-slate-700 focus:border-neonCyan rounded-xl py-2.5 px-3 text-slate-200 text-sm focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-subheading font-bold uppercase text-slate-400 mb-1">Preferred Time Slot *</label>
+                        <select required class="w-full bg-slate-900 border border-slate-700 focus:border-neonCyan rounded-xl py-2.5 px-3 text-slate-200 text-sm focus:outline-none">
+                            <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+                            <option value="afternoon">Afternoon (12:00 PM - 4:00 PM)</option>
+                            <option value="evening">Evening (4:00 PM - 8:00 PM)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 text-neonCyan bg-slate-900 border-slate-700 rounded">
+                        <span class="text-xs text-slate-300 font-subheading uppercase font-bold">Include Free Valet Pickup & Drop Service</span>
+                    </label>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full py-4 rounded-xl bg-neonCyan hover:bg-cyan-300 text-black font-heading font-black text-sm uppercase tracking-wider transition shadow-neon-cyan flex items-center justify-center gap-2">
+                        <i data-lucide="check-circle" class="w-5 h-5"></i>
+                        <span>Confirm Appointment Booking</span>
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- SUCCESS TOAST NOTIFICATION -->
+    <div id="successToast" class="fixed bottom-6 right-6 z-50 hidden glass-panel border-neon-glow p-4 rounded-2xl shadow-neon-cyan flex items-center gap-3 bg-slate-950 text-slate-100 max-w-sm">
+        <div class="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-500 flex items-center justify-center text-neonCyan shrink-0">
+            <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+        </div>
+        <div>
+            <div class="font-heading text-xs font-bold uppercase text-neonCyan">Booking Request Received!</div>
+            <div class="text-[11px] text-slate-300">Our master technician will contact you shortly to confirm your bay slot.</div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Canvas Particle Background Effect
+        const canvas = document.getElementById('bgCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            for (let i = 0; i < 40; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    alpha: Math.random() * 0.5 + 0.2
+                });
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 240, 255, ${p.alpha})`;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#00F0FF';
+                    ctx.fill();
+                });
+                requestAnimationFrame(drawParticles);
+            }
+            drawParticles();
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Hero Vehicle Toggle
+        function selectHeroVehicle(type) {
+            const btnCar = document.getElementById('heroTabCar');
+            const btnBike = document.getElementById('heroTabBike');
+            const img = document.getElementById('heroVehicleImg');
+            const label = document.getElementById('heroVehicleLabel');
+            const desc = document.getElementById('heroVehicleDesc');
+
+            if (type === 'car') {
+                btnCar.className = "px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold transition shadow-neon-cyan flex items-center gap-2";
+                btnBike.className = "px-5 py-2.5 rounded-lg text-slate-300 hover:text-neonCyan transition flex items-center gap-2";
+                img.src = "assets/car-service.jpg";
+                label.innerText = "Master Car Diagnostic Bay";
+                desc.innerText = "OBD-II Scan, ECU Tuning, Laser Alignment, Hydraulic Engine Lift Calibration.";
+            } else {
+                btnBike.className = "px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold transition shadow-neon-cyan flex items-center gap-2";
+                btnCar.className = "px-5 py-2.5 rounded-lg text-slate-300 hover:text-neonCyan transition flex items-center gap-2";
+                img.src = "assets/bike-service.jpg";
+                label.innerText = "Superbike Precision Tech Bay";
+                desc.innerText = "Desmo Valve Timing, Öhlins Suspension Setup, Akrapovič ECU Remap & Chain Balancer.";
+            }
+        }
+
+        // Services Tab Switcher
+        function switchServiceTab(type) {
+            const carGrid = document.getElementById('carServicesGrid');
+            const bikeGrid = document.getElementById('bikeServicesGrid');
+            const btnCar = document.getElementById('tabBtnCar');
+            const btnBike = document.getElementById('tabBtnBike');
+
+            if (type === 'car') {
+                carGrid.classList.remove('hidden');
+                bikeGrid.classList.add('hidden');
+                btnCar.className = "px-8 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold shadow-neon-cyan transition flex items-center gap-2";
+                btnBike.className = "px-8 py-3 rounded-lg text-slate-400 hover:text-neonCyan transition flex items-center gap-2";
+            } else {
+                bikeGrid.classList.remove('hidden');
+                carGrid.classList.add('hidden');
+                btnBike.className = "px-8 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold shadow-neon-cyan transition flex items-center gap-2";
+                btnCar.className = "px-8 py-3 rounded-lg text-slate-400 hover:text-neonCyan transition flex items-center gap-2";
+            }
+        }
+
+        // Estimator Logic
+        let calcVehicleType = 'car';
+
+        function updateCalcVehicle(type) {
+            calcVehicleType = type;
+            const btnCar = document.getElementById('calcTypeCar');
+            const btnBike = document.getElementById('calcTypeBike');
+
+            if (type === 'car') {
+                btnCar.className = "py-3 px-4 rounded-xl border border-neonCyan bg-cyan-950/60 text-neonCyan font-subheading font-bold text-sm uppercase flex items-center justify-center gap-2 transition";
+                btnBike.className = "py-3 px-4 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 font-subheading font-bold text-sm uppercase flex items-center justify-center gap-2 transition";
+            } else {
+                btnBike.className = "py-3 px-4 rounded-xl border border-neonCyan bg-cyan-950/60 text-neonCyan font-subheading font-bold text-sm uppercase flex items-center justify-center gap-2 transition";
+                btnCar.className = "py-3 px-4 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 font-subheading font-bold text-sm uppercase flex items-center justify-center gap-2 transition";
+            }
+            calculateEstimate();
+        }
+
+        function calculateEstimate() {
+            const tierSelect = document.getElementById('calcTier');
+            const tier = tierSelect.value;
+            let basePrice = 249;
+            let timeEst = "3.5 Hours";
+
+            if (tier === 'basic') {
+                basePrice = calcVehicleType === 'car' ? 129 : 119;
+                timeEst = "1.5 Hours";
+            } else if (tier === 'full') {
+                basePrice = calcVehicleType === 'car' ? 249 : 219;
+                timeEst = "3.5 Hours";
+            } else if (tier === 'performance') {
+                basePrice = calcVehicleType === 'car' ? 399 : 349;
+                timeEst = "5 Hours";
+            } else if (tier === 'ceramic') {
+                basePrice = calcVehicleType === 'car' ? 499 : 399;
+                timeEst = "24 Hours";
+            }
+
+            let addons = 0;
+            if (document.getElementById('addonPickup').checked) addons += 30;
+            if (document.getElementById('addonFlush').checked) addons += 45;
+            if (document.getElementById('addonSanitize').checked) addons += 35;
+            if (document.getElementById('addonDyno').checked) addons += 80;
+
+            const total = basePrice + addons;
+            document.getElementById('calcTotal').innerText = `$${total}`;
+            document.getElementById('calcTime').innerText = timeEst;
+        }
+
+        function proceedFromEstimator() {
+            const total = document.getElementById('calcTotal').innerText;
+            const tier = document.getElementById('calcTier').selectedOptions[0].text;
+            openBookingModal(`${tier} (Estimated: ${total})`);
+        }
+
+        // Modal Logic
+        function openBookingModal(serviceName = '') {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('hidden');
+            if (serviceName) {
+                document.getElementById('modalServiceName').value = serviceName;
+            }
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.add('hidden');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            closeBookingModal();
+            const toast = document.getElementById('successToast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 5000);
+            document.getElementById('bookingForm').reset();
+        }
+
+        // FAQ Toggle Logic
+        function toggleFaq(num) {
+            const ans = document.getElementById(`faqAns${num}`);
+            const icon = document.getElementById(`faqIcon${num}`);
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                ans.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+    </script>
+</body>
+</html>
